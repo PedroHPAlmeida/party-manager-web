@@ -1,6 +1,7 @@
 services:
   party-manager-web:
-    image: party-manager-web
+    container_name: party-manager-web
+    image: party-manager-web:latest
     build:
       context: .
       dockerfile: ./Dockerfile
