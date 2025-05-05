@@ -23,6 +23,12 @@ jobs:
 
             - name: Build app
               run: npm run build
+            
+            - name: Upload build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: build-dist
+                path: dist
 
     docker:
         needs: build
@@ -55,3 +61,19 @@ jobs:
             file: ./Dockerfile
             push: true
             tags: ${{ steps.set_image_name.outputs.IMAGE_NAME }}
+
+    deploy:
+      runs-on: ubuntu-latest
+      if: ${{ github.ref_name == 'master' }}
+
+      steps:
+        - name: Download build artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: build-dist
+
+        - uses: amondnet/vercel-action@v25
+          with:
+            vercel-token: ${{ secrets.VERCEL_TOKEN }}
+            vercel-org-id: ${{ secrets.ORG_ID}}
+            vercel-project-id: ${{ secrets.PROJECT_ID}}
