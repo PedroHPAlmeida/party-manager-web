@@ -73,6 +73,8 @@ jobs:
           with:
             name: build-dist
 
+        - uses: actions/checkout@v4
+
         - uses: amondnet/vercel-action@v25
           with:
             vercel-token: ${{ secrets.VERCEL_TOKEN }}
