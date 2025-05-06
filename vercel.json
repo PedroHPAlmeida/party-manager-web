@@ -4,12 +4,7 @@
     "github": {
         "enabled": false
     },
-    "builds": [
-        {
-            "src": "dist",
-            "use": "@vercel/static"
-        }
-    ],
+    "framework": "vite",
     "rewrites": [
         {
             "source": "/(.*)",
